@@ -1,5 +1,7 @@
 # shopping_cart.py
 
+import os
+import datetime
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
     {"id":2, "name": "All-Seasons Salt", "department": "pantry", "aisle": "spices seasonings", "price": 4.99},
@@ -23,7 +25,6 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
 ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
-
 def to_usd(my_price):
     """
     Converts a numeric value to usd-formatted string, for printing and display purposes.
@@ -38,23 +39,25 @@ def to_usd(my_price):
 
 
 # TODO: write some Python code here to produce the desired output
-
+checkout_time = datetime.datetime.now()
 total_price = 0
-
+selected_ids = []
 while True: 
-    selected_id = input("Please input a product identifier:")
+    selected_id = input("Please input a product identifier or input Done:")
             #selected_id is a string, products is a list 
     if selected_id == "Done":
         break
     else:
-         matching_product = [p for p in products if str(p["id"]) == str(selected_id)]
-         matching_product = matching_product[0]
-         total_price = total_price + matching_product["price"]
-         print("Selected Product: " + matching_product["name"] +" "+ str(matching_product["price"]))
-        
+        selected_ids.append(selected_id)
 
+#print(selected_ids)
+for selected_id in selected_ids:
+    matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
+    matching_product = matching_products[0] 
+    total_price = total_price + matching_product["price"]
+    print("Selected Product: " + matching_product["name"] +" "+ to_usd(matching_product["price"]))
 
-print("Total Price: " + str(total_price))
+    
 
-
-
+print("Total Price: " + to_usd(total_price))
+print("Checkout Time: " +checkout_time.strftime("%Y-%m-%d %I:%M %p"))
