@@ -2,6 +2,8 @@
 
 import os
 import datetime
+import dotenv
+
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
     {"id":2, "name": "All-Seasons Salt", "department": "pantry", "aisle": "spices seasonings", "price": 4.99},
@@ -40,7 +42,11 @@ def to_usd(my_price):
 
 # TODO: write some Python code here to produce the desired output
 checkout_time = datetime.datetime.now()
-total_price = 0
+def salestax(subtotal_price):
+    state_sales_tax = .10
+    return subtotal_price * state_sales_tax
+
+subtotal_price = 0
 selected_ids = []
 while True: 
     selected_id = input("Please input a product identifier or input Done:")
@@ -54,10 +60,19 @@ while True:
 for selected_id in selected_ids:
     matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
     matching_product = matching_products[0] 
-    total_price = total_price + matching_product["price"]
+    subtotal_price = subtotal_price + matching_product["price"]
     print("Selected Product: " + matching_product["name"] +" "+ to_usd(matching_product["price"]))
 
-    
-
-print("Total Price: " + to_usd(total_price))
+print("------------------------")    
+print("FUNKY FRESH GROCERY & DELI NYC")
+print("------------------------")
+print("118 LUDLOW ST. NY, NY 11238")
+print("415-617-0830")
+print("------------------------")
+print("Selected Product: " + matching_product["name"] +" "+ to_usd(matching_product["price"]))
+print("Subtotal Price: " + to_usd(subtotal_price))
+state_tax = salestax(subtotal_price)
+print("Total Tax Owed: ", to_usd(state_tax))
+print("Total Owed: ", to_usd(subtotal_price + state_tax))
 print("Checkout Time: " +checkout_time.strftime("%Y-%m-%d %I:%M %p"))
+print("Thank you! Come Again!")
