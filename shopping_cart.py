@@ -57,22 +57,22 @@ while True:
         selected_ids.append(selected_id)
 
 #print(selected_ids)
-for selected_id in selected_ids:
-    matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
-    matching_product = matching_products[0] 
-    subtotal_price = subtotal_price + matching_product["price"]
-    print("Selected Product: " + matching_product["name"] +" "+ to_usd(matching_product["price"]))
-
 print("------------------------")    
 print("FUNKY FRESH GROCERY & DELI NYC")
 print("------------------------")
 print("118 LUDLOW ST. NY, NY 11238")
 print("415-617-0830")
 print("------------------------")
-print("Selected Product: " + matching_product["name"] +" "+ to_usd(matching_product["price"]))
+for selected_id in selected_ids:
+    matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
+    matching_product = matching_products[0] 
+    subtotal_price = subtotal_price + matching_product["price"]
+    print("Selected Product: " + matching_product["name"] +" "+ to_usd(matching_product["price"]))
+
+
 print("Subtotal Price: " + to_usd(subtotal_price))
 state_tax = salestax(subtotal_price)
 print("Total Tax Owed: ", to_usd(state_tax))
 print("Total Owed: ", to_usd(subtotal_price + state_tax))
 print("Checkout Time: " +checkout_time.strftime("%Y-%m-%d %I:%M %p"))
-print("Thank you! Come Again!")
+print("Thank you! Come Again!!")
